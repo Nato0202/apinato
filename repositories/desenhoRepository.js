@@ -18,6 +18,13 @@ export async function adicionarDesenho(novoDs) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoDs.nm_desenho, novoDs.nm_criador, novoDs.qtd_temp, novoDs.qtd_eps, novoDs.dt_lancamento, novoDs.bt_encerrado])
+  const [info] = await connection.query(comando, [
+    novoDs.nm_desenho, 
+    novoDs.nm_criador, 
+    novoDs.qtd_temp, 
+    novoDs.qtd_eps, 
+    novoDs.dt_lancamento, 
+    novoDs.bt_encerrado
+  ])
   return info.insertId;
 }
