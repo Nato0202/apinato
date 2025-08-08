@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosPizza = req.body;
+    try {
+        await alterarPizza(id, novosDadosPizza);
+        res.status(200).json({ message: 'Pizza atualizada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar pizza' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerPizza(id);
+        res.status(200).json({ message: 'Pizza removida com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover pizza' });
+    }
+});
+
 export default router;

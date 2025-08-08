@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosCarro = req.body;
+    try {
+        await alterarCarro(id, novosDadosCarro);
+        res.status(200).json({ message: 'Carro atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar carro' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerCarro(id);
+        res.status(200).json({ message: 'Carro removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover carro' });
+    }
+});
+
 export default router;

@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosFuncionario = req.body;
+    try {
+        await alterarFuncionario(id, novosDadosFuncionario);
+        res.status(200).json({ message: 'Funcionário atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar funcionário' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerFuncionario(id);
+        res.status(200).json({ message: 'Funcionário removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover funcionário' });
+    }
+});
+
 export default router;

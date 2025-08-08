@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosEstado = req.body;
+    try {
+        await alterarEstado(id, novosDadosEstado);
+        res.status(200).json({ message: 'Estado atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar estado' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerEstado(id);
+        res.status(200).json({ message: 'Estado removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover estado' });
+    }
+});
+
 export default router;

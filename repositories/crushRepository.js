@@ -75,3 +75,4 @@ export async function removerCrush(id) {
 
   const [info] = await conection.query(comando, [id]);
 }
+

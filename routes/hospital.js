@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosPaciente = req.body;
+    try {
+        await alterarPaciente(id, novosDadosPaciente);
+        res.status(200).json({ message: 'Paciente atualizado com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar paciente' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerPaciente(id);
+        res.status(200).json({ message: 'Paciente removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover paciente' });
+    }
+});
+
 export default router;

@@ -22,4 +22,24 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosTurma = req.body;
+    try {
+        await alterarTurma(id, novosDadosTurma);
+        res.status(200).json({ message: 'Turma atualizada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar turma' });
+    }
+});
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerTurma(id);
+        res.status(200).json({ message: 'Turma removida com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover turma' });
+    }
+});
+
 export default router;

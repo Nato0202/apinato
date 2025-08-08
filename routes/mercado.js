@@ -22,4 +22,26 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosMercado = req.body;
+    try {
+        await alterarMercado(id, novosDadosMercado);
+        res.status(200).json({ message: 'Mercado atualizado com sucesso' });
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar mercado' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerMercado(id);
+        res.status(200).json({ message: 'Mercado removido com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover mercado' });
+    }
+});
+
 export default router;

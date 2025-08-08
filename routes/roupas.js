@@ -22,4 +22,25 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const novosDadosRoupa = req.body;
+    try {
+        await alterarRoupa(id, novosDadosRoupa);
+        res.status(200).json({ message: 'Roupa atualizada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar roupa' });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        await removerRoupa(id);
+        res.status(200).json({ message: 'Roupa removida com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao remover roupa' });
+    }
+});
+
 export default router;
