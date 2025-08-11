@@ -18,7 +18,11 @@ export async function adicionarPizzas(novoPz) {
                values (?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoPz.nm_sabor, novoPz.tp_preparo, novoPz.preco, novoPz.qtd_estoque, novoPz.bt_promo])
+  const [info] = await connection.query(comando, [
+    novoPz.nm_sabor, 
+    novoPz.tp_preparo, 
+    novoPz.preco, 
+    novoPz.qtd_estoque, novoPz.bt_promo])
   return info.insertId;
 
 }

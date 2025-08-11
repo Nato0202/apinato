@@ -18,7 +18,14 @@ export async function adicionarPaciente(novoPc) {
                values (?, ?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoPc.medicamento_nm, novoPc.bt_medicamentos, novoPc.qtd_quartos, novoPc.bt_quartos, novoPc.nm_paciente, novoPc.nm_doenca, novoPc.qd_entrada])
+  const [info] = await connection.query(comando, [
+    novoPc.medicamento_nm, 
+    novoPc.bt_medicamentos, 
+    novoPc.qtd_quartos, 
+    novoPc.bt_quartos, 
+    novoPc.nm_paciente, 
+    novoPc.nm_doenca, 
+    novoPc.qd_entrada])
   return info.insertId;
 
 }

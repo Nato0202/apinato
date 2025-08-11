@@ -18,7 +18,13 @@ export async function adicionarViagem(novoVg) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoVg.nm_local, novoVg.qtd_malas, novoVg.dt_saida, novoVg.dt_chegada, novoVg.qtd_gastos, novoVg.bt_bom])
+  const [info] = await connection.query(comando, [
+    novoVg.nm_local, 
+    novoVg.qtd_malas, 
+    novoVg.dt_saida, 
+    novoVg.dt_chegada, 
+    novoVg.qtd_gastos, 
+    novoVg.bt_bom])
   return info.insertId;
 
 }

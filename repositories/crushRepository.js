@@ -29,8 +29,6 @@ export async function adicionarCrush(novoCrush) {
     novoCrush.nota_paixao,
     novoCrush.status_relacionamento
   ])
-
-  
   return info.insertId;
 }
 

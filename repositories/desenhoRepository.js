@@ -24,7 +24,7 @@ export async function adicionarDesenho(novoDs) {
     novoDs.qtd_temp, 
     novoDs.qtd_eps, 
     novoDs.dt_lancamento, 
-    novoDs.bt_encerrado
+    novoDs.bt_encerrado 
   ])
   return info.insertId;
 }

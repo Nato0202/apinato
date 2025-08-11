@@ -18,7 +18,12 @@ export async function adicionarFuncionarios(novoFc) {
                values (?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoFc.nm_funcionario, novoFc.horas_diarias, novoFc.salario, novoFc.cpf, novoFc.aposentado])
+  const [info] = await connection.query(comando, [
+    novoFc.nm_funcionario, 
+    novoFc.horas_diarias, 
+    novoFc.salario, 
+    novoFc.cpf, 
+    novoFc.aposentado])
   return info.insertId;
 
 }

@@ -18,7 +18,13 @@ export async function adicionarCarros(novoCr) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await conection.query(comando, [novoCr.ds_marca, novoCr.ds_modelo, novoCr.nr_ano, novoCr.vl_preco, novoCr.img_carro, novoCr.dt_inclusao])
+  const [info] = await conection.query(comando, [
+    novoCr.ds_marca, 
+    novoCr.ds_modelo, 
+    novoCr.nr_ano, 
+    novoCr.vl_preco, 
+    novoCr.img_carro, 
+    novoCr.dt_inclusao])
   return info.insertId;
 }
 
@@ -33,7 +39,13 @@ export async function alterarCarro(id, novosDadosCarro) {
      WHERE id_carro = ?;
   `
 
-  await conection.query(comando, [novosDadosCarro.ds_marca, novosDadosCarro.ds_modelo, novosDadosCarro.nr_ano, novosDadosCarro.vl_preco, novosDadosCarro.img_carro, id]);
+  await conection.query(comando, [
+    novosDadosCarro.ds_marca, 
+    novosDadosCarro.ds_modelo, 
+    novosDadosCarro.nr_ano, 
+    novosDadosCarro.vl_preco, 
+    novosDadosCarro.img_carro, 
+    id]);
 }
 
 export async function removerCarro(id) {

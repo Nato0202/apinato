@@ -18,6 +18,12 @@ export async function adicionarTurma(novoTm) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoTm.nm_turma, novoTm.ds_curso, novoTm.nr_ano_letivo, novoTm.qnt_capacidade, novoTm.bt_ativo, novoTm.dt_inclusao])
+  const [info] = await connection.query(comando, [
+    novoTm.nm_turma, 
+    novoTm.ds_curso, 
+    novoTm.nr_ano_letivo, 
+    novoTm.qnt_capacidade, 
+    novoTm.bt_ativo, 
+    novoTm.dt_inclusao])
   return info.insertId;
 }

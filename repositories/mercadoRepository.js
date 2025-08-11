@@ -18,7 +18,13 @@ export async function adicionarMercado(novoMc) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoMc.nm_produto, novoMc.qtd_produtos, novoMc.preco, novoMc.validade, novoMc.dt_compra, novoMc.estoque])
+  const [info] = await connection.query(comando, [
+    novoMc.nm_produto, 
+    novoMc.qtd_produtos, 
+    novoMc.preco, 
+    novoMc.validade, 
+    novoMc.dt_compra, 
+    novoMc.estoque])
   return info.insertId;
 
 }

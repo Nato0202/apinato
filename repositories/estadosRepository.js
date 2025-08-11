@@ -18,6 +18,12 @@ export async function adicionarEstados(novoEt) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoEt.nm_estado, novoEt.ddd, novoEt.qntd_populacao, novoEt.sigla, novoEt.naturalidade, novoEt.dt_fundacao])
+  const [info] = await connection.query(comando, [
+    novoEt.nm_estado, 
+    novoEt.ddd, 
+    novoEt.qntd_populacao, 
+    novoEt.sigla, 
+    novoEt.naturalidade, 
+    novoEt.dt_fundacao])
   return info.insertId;
 }

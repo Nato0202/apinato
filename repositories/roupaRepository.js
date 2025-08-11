@@ -18,7 +18,13 @@ export async function adicionarRoupa(novoRp) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await connection.query(comando, [novoRp.nm_marca, novoRp.nm_modelo, novoRp.nr_tamanho, novoRp.qtd_estoque, novoRp.bt_estoque, novoRp.qt_preco])
+  const [info] = await connection.query(comando, [
+    novoRp.nm_marca, 
+    novoRp.nm_modelo, 
+    novoRp.nr_tamanho, 
+    novoRp.qtd_estoque, 
+    novoRp.bt_estoque, 
+    novoRp.qt_preco])
   return info.insertId;
 
 }
