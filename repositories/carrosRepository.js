@@ -1,6 +1,25 @@
 import { connection } from "./connection.js";
 
+export async function consultarCarros(id) {
+  const comando = `
+    SELECT *
+    FROM carros
+    WHERE id = ? 
+  `
+  const [registros] = await conection.query(comando, [id])
+  return registros[0];
+}
 
+export async function filtrarCarro(nome) {
+  const comando = `
+    SELECT *
+      FROM carros
+     WHERE nome like ? 
+  `
+
+  const [registros] = await conection.query(comando, ['%'+nome+'%'])
+  return registros;
+}
 export async function listarCarros() {
   const comando = `
     SELECT *

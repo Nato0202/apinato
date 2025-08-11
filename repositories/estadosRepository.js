@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarEstados(id) {
+  const comando = `
+    SELECT *
+    FROM estados
+    WHERE id = ?
+  `
+  const [resultado] = await connection.execute(comando, [id])
+  return resultado[0];
+}
+
+export async function filtrarEstados(nome) {
+  const comando = `
+    SELECT *
+    FROM estados
+    WHERE nm_estado LIKE ?
+    `
+  const [resultado] = await connection.execute(comando, ['%' + nome + '%']);
+  return resultado;
+}
 
 export async function listarEstados() {
   const comando = `
@@ -10,7 +29,6 @@ export async function listarEstados() {
   const [registros] = await connection.query(comando)
   return registros;
 }
-
 
 export async function adicionarEstados(novoEt) {
   const comando = `

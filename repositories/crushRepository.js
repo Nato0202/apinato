@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarCrush(id) {
+  const comando = `
+    SELECT *
+    FROM crush
+    WHERE id = ?
+  `
+  const [registros] = await connection.query(comando, [id]);
+  return registros[0];
+}
+
+export async function filtrarCrush(nome) {
+  const comando = `
+    SELECT *
+    FROM crush
+    WHERE nome LIKE ?
+  `
+  const [registros] = await connection.query(comando, ['%' + nome + '%']);
+  return registros;
+}
 
 export async function listarCrush() {
   const comando = `

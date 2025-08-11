@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarTurma(id) {
+  const comando = `
+    SELECT *
+    FROM turma
+    WHERE id = ?
+  `
+  const [registros] = await connection.query(comando, [id]);
+  return registros;
+}
+
+export async function filtrarTurma(nome) {
+  const comando = `
+    SELECT *
+    FROM turma
+    WHERE nome LIKE ?
+    `
+  const [registros] = await connection.query(comando, [`%${nome}%`]);
+  return registros;
+}
 
 export async function listarTurma() {
   const comando = `
@@ -10,7 +29,6 @@ export async function listarTurma() {
   const [registros] = await connection.query(comando)
   return registros;
 }
-
 
 export async function adicionarTurma(novoTm) {
   const comando = `

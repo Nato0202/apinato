@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarViagem(id) {
+  const comando = `
+    SELECT *
+    FROM viagem
+    WHERE id = ?
+    `
+  const [registros] = await connection.query(comando, [id]);
+  return registros;
+}
+
+export async function filtrarViagem(nome) {
+  const comando = `
+    SELECT *
+    FROM viagem
+    WHERE nm_local LIKE ?
+  `
+  const [registros] = await connection.query(comando, [`%${nome}%`]);
+  return registros;
+}
 
 export async function listarViagem() {
   const comando = `

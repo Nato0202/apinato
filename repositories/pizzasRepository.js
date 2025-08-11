@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarPizzas(id) {
+  const comando = `
+    SELECT *
+    FROM pizzas
+    WHERE id = ?
+  `
+  const [resultado] = await connection.query(comando, [id]);
+  return resultado;
+}
+
+export async function filtrarPizzas(nome) {
+  const comando = `
+    SELECT *
+    FROM pizzas
+    WHERE nm_sabor LIKE ?
+    `
+    const [resultado] = await connection.query(comando, [`%${nome}%`]);
+  return resultado;
+}
 
 export async function listarPizzas() {
   const comando = `

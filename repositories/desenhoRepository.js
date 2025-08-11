@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarDesenho(id) {
+  const comando = `
+    SELECT *
+    FROM desenho
+    WHERE id = ?
+  `
+  const [registros] = await connection.query(comando, [id]);
+  return registros[0];
+}
+
+export async function filtrarDesenho(nome) {
+  const comando = `
+  SELECT *
+  FROM desenho
+  WHERE nm_desenho LIKE ?
+  `
+  const [registros] = await connection.query(comando, ['%' + nome + '%']);
+  return registros;
+}
 
 export async function listarDesenho() {
   const comando = `

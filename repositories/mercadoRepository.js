@@ -1,5 +1,23 @@
 import { connection } from "./connection.js";
 
+export async function consultarMercado(id) {
+  const comando = `
+    SELECT *
+    FROM mercado
+    WHERE id = ?
+  `
+  const [resultado] = await connection.query(comando, [id]);
+  return resultado[0];
+}
+export async function filtrarMercado(nome) {
+  const comando = `
+    SELECT *
+    FROM mercado
+    WHERE nm_produto LIKE ?
+  `
+  const [resultado] = await connection.query(comando, [`%${nome}%`]);
+  return resultado;
+}
 
 export async function listarMercado() {
   const comando = `

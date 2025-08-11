@@ -1,5 +1,24 @@
 import { connection } from "./connection.js";
 
+export async function consultarHospital(id) {
+  const comando = `
+    SELECT *
+    FROM hospital
+    WHERE id = ?
+  `
+  const [registros] = await connection.query(comando, [id]);
+  return registros[0];
+}
+
+export async function filtrarHospital(nome) {
+  const comando = `
+    SELECT *
+    FROM hospital
+    WHERE nm_paciente LIKE ?
+    `
+    const [registros] = await connection.query(comando, [`%${nome}%`]);
+    return registros;
+}
 
 export async function listarPaciente() {
   const comando = `
