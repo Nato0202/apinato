@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarTurma, adicionarTurma, filtrarTurma, consultarTurma } from '../repositories/turmaRepository.js';
+import { listarTurma, adicionarTurma, filtrarTurma, consultarTurma } from '../src/repositories/turmaRepository.js';
 
-const router = express.Router();
+const router = express();
 
 
 router.get('/', async (req, res) => {

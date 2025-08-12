@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarCrush, adicionarCrush, alterarCrush, removerCrush, filtrarCrush, consultarCrush} from '../repositories/crushRepository.js';
+import { listarCrush, adicionarCrush, alterarCrush, removerCrush, filtrarCrush, consultarCrush} from '../src/repositories/crushRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

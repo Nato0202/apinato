@@ -1,7 +1,7 @@
 import express from 'express';
 import { listarViagem, adicionarViagem, filtrarViagem, consultarViagem } from '../repositories/viagemRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

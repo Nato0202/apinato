@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarMercado, adicionarMercado, filtrarMercado, consultarMercado } from '../repositories/mercadoRepository.js';
+import { listarMercado, adicionarMercado, filtrarMercado, consultarMercado } from '../src/repositories/mercadoRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/mercados', async (req, res) => {
     try {

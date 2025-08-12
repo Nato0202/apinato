@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarRoupa, adicionarRoupa, filtrarRoupa, consultarRoupa } from '../repositories/roupaRepository.js';
+import { listarRoupa, adicionarRoupa, filtrarRoupa, consultarRoupa } from '../src/repositories/roupaRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

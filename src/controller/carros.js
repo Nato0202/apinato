@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarCarros, adicionarCarros, filtrarCarro, consultarCarros } from '../repositories/carrosRepository.js';
+import { listarCarros, adicionarCarros, filtrarCarro, consultarCarros } from '../src/repositories/carrosRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

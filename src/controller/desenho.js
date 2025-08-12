@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarDesenho, adicionarDesenho, filtrarDesenho, consultarDesenho } from '../repositories/desenhoRepository.js';
+import { listarDesenho, adicionarDesenho, filtrarDesenho, consultarDesenho } from '../src/repositories/desenhoRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

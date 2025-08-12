@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarPaciente, adicionarPaciente, filtrarHospital, consultarHospital } from '../repositories/hospitalRepository.js';
+import { listarPaciente, adicionarPaciente, filtrarHospital, consultarHospital } from '../src/repositories/hospitalRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/pacientes', async (req, res) => {
     try {

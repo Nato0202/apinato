@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarPizzas, adicionarPizzas, consultarPizzas } from '../repositories/pizzasRepository.js';
+import { listarPizzas, adicionarPizzas, consultarPizzas } from '../src/repositories/pizzasRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

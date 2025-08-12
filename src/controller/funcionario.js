@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarFuncionarios, adicionarFuncionarios, filtrarFuncionario, consultarFuncionario } from '../repositories/funcionarioRepository.js';
+import { listarFuncionarios, adicionarFuncionarios, filtrarFuncionario, consultarFuncionario } from '../src/repositories/funcionarioRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {

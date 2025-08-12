@@ -1,7 +1,7 @@
 import express from 'express';
-import { listarEstados, adicionarEstados, filtrarEstados, consultarEstados } from '../repositories/estadosRepository.js';
+import { listarEstados, adicionarEstados, filtrarEstados, consultarEstados } from '../src/repositories/estadosRepository.js';
 
-const router = express.Router();
+const router = express();
 
 router.get('/', async (req, res) => {
     try {
