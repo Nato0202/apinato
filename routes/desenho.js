@@ -1,7 +1,27 @@
 import express from 'express';
-import { listarDesenho, adicionarDesenho } from '../repositories/desenhoRepository.js';
+import { listarDesenho, adicionarDesenho, filtrarDesenho, consultarDesenho } from '../repositories/desenhoRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const desenhos = await filtrarDesenho();
+        res.json(desenhos);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar desenhos' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const desenho = await consultarDesenho(id);
+        res.json(desenho);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar desenho' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

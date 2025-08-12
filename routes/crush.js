@@ -1,7 +1,27 @@
 import express from 'express';
-import { listarCrush, adicionarCrush, alterarCrush, removerCrush} from '../repositories/crushRepository.js';
+import { listarCrush, adicionarCrush, alterarCrush, removerCrush, filtrarCrush, consultarCrush} from '../repositories/crushRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const registros = await filtrarCrush();
+        res.json(registros);
+    } catch (error) {
+
+        res.status(500).json({ error: 'Erro ao buscar Crush' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const registro = await consultarCrush(id);
+        res.json(registro);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar Crush' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

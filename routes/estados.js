@@ -1,8 +1,28 @@
 import express from 'express';
-import { listarEstados, adicionarEstados } from '../repositories/estadosRepository.js';
+import { listarEstados, adicionarEstados, filtrarEstados, consultarEstados } from '../repositories/estadosRepository.js';
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+    try {
+        const estados = await filtrarEstados();
+        res.json(estados);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar estados' });
+    }
+});
+
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const estado = await consultarEstados(id)
+        res.json(estado)
+        } catch (error) {
+            res.status(500).json({ error: 'Erro ao buscar estado' })
+        }
+});        
+    
 router.get('/', async (req, res) => {
     try {
         const registros = await listarEstados();

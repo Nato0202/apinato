@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarCarros, adicionarCarros } from '../repositories/carrosRepository.js';
+import { listarCarros, adicionarCarros, filtrarCarro, consultarCarros } from '../repositories/carrosRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const carros = await filtrarCarro();
+        res.json(carros);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar carros' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const carro = await consultarCarros(id);
+        res.json(carro);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar carro' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

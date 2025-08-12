@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarMercado, adicionarMercado } from '../repositories/mercadoRepository.js';
+import { listarMercado, adicionarMercado, filtrarMercado, consultarMercado } from '../repositories/mercadoRepository.js';
 
 const router = express.Router();
+
+router.get('/mercados', async (req, res) => {
+    try {
+        const mercados = await filtrarMercado
+        res.status(200).send(mercados);
+        } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar mercados' });
+    }
+});
+router.get('/mercados/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const mercado = await consultarMercado(id);
+        res.json(mercado);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar mercado' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

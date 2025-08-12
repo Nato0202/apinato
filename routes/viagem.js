@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarViagem, adicionarViagem } from '../repositories/viagemRepository.js';
+import { listarViagem, adicionarViagem, filtrarViagem, consultarViagem } from '../repositories/viagemRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const viagens = await filtrarViagem();
+        res.json(viagens);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar viagens' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const viagem = await consultarViagem(id);
+        res.json(viagem);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar viagem' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarRoupa, adicionarRoupa } from '../repositories/roupaRepository.js';
+import { listarRoupa, adicionarRoupa, filtrarRoupa, consultarRoupa } from '../repositories/roupaRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const roupas = await filtrarRoupa();
+        res.json(roupas);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar roupas' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const roupa = await consultarRoupa(id);
+        res.json(roupa);
+        } catch (error) {
+            res.status(404).json({ error: 'Roupa não encontrada' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

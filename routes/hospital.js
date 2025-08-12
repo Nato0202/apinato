@@ -1,7 +1,27 @@
 import express from 'express';
-import { listarPaciente, adicionarPaciente } from '../repositories/hospitalRepository.js';
+import { listarPaciente, adicionarPaciente, filtrarHospital, consultarHospital } from '../repositories/hospitalRepository.js';
 
 const router = express.Router();
+
+router.get('/pacientes', async (req, res) => {
+    try {
+        const pacientes = await filtrarHospital();
+        res.json(pacientes);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar pacientes' });
+    }
+});
+
+router.get('/pacientes/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const paciente = await consultarHospital(id);
+        res.json(paciente);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar paciente' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

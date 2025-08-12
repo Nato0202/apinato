@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarPizzas, adicionarPizzas } from '../repositories/pizzasRepository.js';
+import { listarPizzas, adicionarPizzas, consultarPizzas } from '../repositories/pizzasRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const pizzas = await listarPizzas();
+        res.json(pizzas);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar pizzas' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const pizza = await consultarPizzas(id);
+        res.json(pizza);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar pizza' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

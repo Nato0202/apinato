@@ -1,7 +1,26 @@
 import express from 'express';
-import { listarFuncionarios, adicionarFuncionarios } from '../repositories/funcionarioRepository.js';
+import { listarFuncionarios, adicionarFuncionarios, filtrarFuncionario, consultarFuncionario } from '../repositories/funcionarioRepository.js';
 
 const router = express.Router();
+
+router.get('/', async (req, res) => {
+    try {
+        const funcionarios = await filtrarFuncionario();
+        res.json(funcionarios);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar funcionários' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const funcionario = await consultarFuncionario(id);
+        res.json(funcionario);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar funcionário' });
+    }
+});
 
 router.get('/', async (req, res) => {
     try {

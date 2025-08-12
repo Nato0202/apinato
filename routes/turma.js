@@ -1,14 +1,25 @@
 import express from 'express';
-import { listarTurma, adicionarTurma } from '../repositories/turmaRepository.js';
+import { listarTurma, adicionarTurma, filtrarTurma, consultarTurma } from '../repositories/turmaRepository.js';
 
 const router = express.Router();
 
+
 router.get('/', async (req, res) => {
     try {
-        const registros = await listarTurma();
+        const registros = await filtrarTurma();
         res.json(registros);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar turmas' });
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const turma = await consultarTurma(id);
+        res.json(turma);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar turma' });
     }
 });
 
