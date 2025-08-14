@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoDesenho from '../src/repositories/desenhoRepository.js';
+import * as repoDesenho from '../repositories/desenhoRepository.js';
 
 const endpoints = express();
 

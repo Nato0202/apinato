@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoCrush from '../src/repositories/crushRepository.js';
+import * as repoCrush from '../repositories/crushRepository.js';
 
 const endpoints = express();
 

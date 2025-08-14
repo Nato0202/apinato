@@ -1,5 +1,5 @@
 import express from 'express';
-import repoPizzas from '../src/repositories/pizzasRepository.js';
+import * as repoPizzas from '../repositories/pizzasRepository.js';
 
 const endpoints = express();
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import repoFuncionario from '../src/repositories/funcionarioRepository.js';
+import * as repoFuncionario from '../repositories/funcionarioRepository.js';
 
 const endpoints = express();
 

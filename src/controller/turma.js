@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoTurma from '../src/repositories/turmaRepository.js';
+import * as repoTurma from '../repositories/turmaRepository.js';
 
 const endpoints = express();
 

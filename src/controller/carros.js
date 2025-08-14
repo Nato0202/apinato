@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoCarro from '../src/repositories/carrosRepository.js';
+import * as repoCarro from '../repositories/carrosRepository.js';
 
 const endpoint = express();
 

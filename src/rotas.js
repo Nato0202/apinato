@@ -14,6 +14,16 @@ import viagemController from './controller/viagem.js'
 
 
 export function adicionarRotas(api) {
-  api.use(cursoController);
-  // api.use(alunoController);
+  api.use(carrosController);
+  api.use(crushController);
+  api.use(desenhoController);
+  api.use(estadosController);
+  api.use(funcionarioController);
+  api.use(hospitalController);
+  api.use(mercadoController);
+  api.use(pizzasController);
+  api.use(roupaController);
+  api.use(turmaController);
+  api.use(viagemController);
+  // api.use(carrpsController);
 }

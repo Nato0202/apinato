@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoRoupa from '../src/repositories/roupaRepository.js';
+import * as repoRoupa from '../repositories/roupaRepository.js';
 
 const endpoints = express();
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoHospital from '../src/repositories/hospitalRepository.js';
+import * as repoHospital from '../repositories/hospitalRepository.js';
 
 const endpoints = express();
 

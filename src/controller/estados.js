@@ -1,5 +1,5 @@
 import express from 'express';
-import * as repoEstado from '../src/repositories/estadosRepository.js';
+import * as repoEstado from '../repositories/estadosRepository.js';
 
 const endpoints = express();
 
