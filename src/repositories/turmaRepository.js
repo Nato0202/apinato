@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarTurma(id) {
   const comando = `
@@ -44,4 +44,35 @@ export async function adicionarTurma(novoTm) {
     novoTm.bt_ativo, 
     novoTm.dt_inclusao])
   return info.insertId;
+}
+
+export async function alterar(id, novosDadosTurma) {
+  const comando = `
+    UPDATE turma
+    SET nm_turma = ?, 
+    ds_curso = ?, 
+    nr_ano_letivo = ?, 
+    qnt_capacidade = ?, 
+    bt_ativo = ?, 
+    dt_inclusao = ?
+    WHERE id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosTurma.nm_turma,
+    novosDadosTurma.ds_curso,
+    novosDadosTurma.nr_ano_letivo,
+    novosDadosTurma.qnt_capacidade,
+    novosDadosTurma.bt_ativo,
+    novosDadosTurma.dt_inclusao,
+    id]);
+}
+
+export async function removerTurma(id) {
+  const comando = `
+    DELETE FROM turma
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

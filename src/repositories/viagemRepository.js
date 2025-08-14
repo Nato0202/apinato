@@ -1,4 +1,4 @@
-import { connection } from "../../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarViagem(id) {
   const comando = `
@@ -46,4 +46,35 @@ export async function adicionarViagem(novoVg) {
     novoVg.bt_bom])
   return info.insertId;
 
+}
+
+export async function alterar(id, novosDadosViagem) {
+  const comando = `
+    UPDATE viagem
+    SET nm_local = ?, 
+    qtd_malas = ?, 
+    dt_saida = ?,
+    dt_chegada = ?, 
+    qtd_gastos = ?, 
+    bt_bom = ?,
+    where id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosViagem.nm_local,
+    novosDadosViagem.qtd_malas,
+    novosDadosViagem.dt_saida,
+    novosDadosViagem.dt_chegada,
+    novosDadosViagem.qtd_gastos,
+    novosDadosViagem.bt_bom,
+    id]);
+}
+
+export async function removerViagem(id) {
+  const comando = `
+    DELETE FROM viagem
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

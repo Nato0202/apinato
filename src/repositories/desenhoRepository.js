@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarDesenho(id) {
   const comando = `
@@ -46,4 +46,35 @@ export async function adicionarDesenho(novoDs) {
     novoDs.bt_encerrado 
   ])
   return info.insertId;
+}
+
+export async function alterarDesenho(id, novosDadosDesenho) {
+  const comando = `
+    UPDATE desenho
+       SET nm_desenho = ?,
+       nm_criador = ?,
+       qtd_temp = ?,
+       qtd_eps = ?,
+       dt_lancamento = ?,
+       bt_encerrado= ?,
+     WHERE id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosDesenho.nm_desenho,
+    novosDadosDesenho.nm_criador,
+    novosDadosDesenho.qtd_temp,
+    novosDadosDesenho.qtd_eps,
+    novosDadosDesenho.dt_lancamento,
+    novosDadosDesenho.bt_encerrado,
+    id]);
+}
+
+export async function removerDesenho(id) {
+  const comando = `
+    DELETE FROM desenho
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

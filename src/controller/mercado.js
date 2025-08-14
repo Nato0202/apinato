@@ -1,20 +1,20 @@
 import express from 'express';
-import { listarMercado, adicionarMercado, filtrarMercado, consultarMercado } from '../src/repositories/mercadoRepository.js';
+import * as repoMercado from '../repositories/mercadoRepository.js';
 
-const router = express();
+const endpoints = express();
 
-router.get('/mercados', async (req, res) => {
+endpoints.get('/mercados', async (req, res) => {
     try {
-        const mercados = await filtrarMercado
+        const mercados = await repoMercado.filtrarMercado
         res.status(200).send(mercados);
         } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar mercados' });
     }
 });
-router.get('/mercados/:id', async (req, res) => {
+endpoints.get('/mercados/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const mercado = await consultarMercado(id);
+        const mercado = await repoMercado.consultarMercado(id);
         res.json(mercado);
     }
     catch (error) {
@@ -22,30 +22,30 @@ router.get('/mercados/:id', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+endpoints.get('/mercados', async (req, res) => {
     try {
-        const registros = await listarMercado();
+        const registros = await repoMercado.listarMercado();
         res.json(registros);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar mercados' });
     }
 });
 
-router.post('/', async (req, res) => {
+endpoints.post('/mercados', async (req, res) => {
     try {
         const novoMercado = req.body;
-        const id = await adicionarMercado(novoMercado);
+        const id = await repoMercado.adicionarMercado(novoMercado);
         res.status(201).json({ newId: id });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao adicionar mercado' });
     }
 });
 
-router.put('/:id', async (req, res) => {
+endpoints.put('/mercados/:id', async (req, res) => {
     const id = req.params.id;
     const novosDadosMercado = req.body;
     try {
-        await alterarMercado(id, novosDadosMercado);
+        await repoMercado.alterarMercado(id, novosDadosMercado);
         res.status(200).json({ message: 'Mercado atualizado com sucesso' });
     }
     catch (error) {
@@ -53,14 +53,14 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+endpoints.delete('/mercados/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await removerMercado(id);
+        await repoMercado.removerMercado(id);
         res.status(200).json({ message: 'Mercado removido com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao remover mercado' });
     }
 });
 
-export default router;
+export default endpoints;

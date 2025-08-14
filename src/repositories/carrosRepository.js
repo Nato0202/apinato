@@ -1,4 +1,4 @@
-import { connection } from "../../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarCarros(id) {
   const comando = `
@@ -6,7 +6,7 @@ export async function consultarCarros(id) {
     FROM carros
     WHERE id = ? 
   `
-  const [registros] = await conection.query(comando, [id])
+  const [registros] = await connection.query(comando, [id])
   return registros[0];
 }
 
@@ -17,7 +17,7 @@ export async function filtrarCarro(nome) {
      WHERE nome like ? 
   `
 
-  const [registros] = await conection.query(comando, ['%'+nome+'%'])
+  const [registros] = await connection.query(comando, ['%'+nome+'%'])
   return registros;
 }
 export async function listarCarros() {
@@ -26,7 +26,7 @@ export async function listarCarros() {
       FROM carros
   `
 
-  const [registros] = await conection.query(comando)
+  const [registros] = await connection.query(comando)
   return registros;
 }
 
@@ -37,7 +37,7 @@ export async function adicionarCarros(novoCr) {
                values (?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await conection.query(comando, [
+  const [info] = await connection.query(comando, [
     novoCr.ds_marca, 
     novoCr.ds_modelo, 
     novoCr.nr_ano, 
@@ -55,10 +55,10 @@ export async function alterarCarro(id, novosDadosCarro) {
            nr_ano = ?,
            vl_preco = ?,
            img_carro = ?
-     WHERE id_carro = ?;
+     WHERE id = ?;
   `
 
-  await conection.query(comando, [
+  await connection.query(comando, [
     novosDadosCarro.ds_marca, 
     novosDadosCarro.ds_modelo, 
     novosDadosCarro.nr_ano, 
@@ -70,8 +70,8 @@ export async function alterarCarro(id, novosDadosCarro) {
 export async function removerCarro(id) {
   const comando = `
     DELETE FROM carros
-          WHERE id_carro = ?;
+          WHERE id = ?;
   `
 
-  await conection.query(comando, [id]);
+  await connection.query(comando, [id]);
 }

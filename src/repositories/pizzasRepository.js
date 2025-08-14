@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarPizzas(id) {
   const comando = `
@@ -45,3 +45,40 @@ export async function adicionarPizzas(novoPz) {
   return info.insertId;
 
 }
+
+export async function removerPizzas(id) {
+  const comando = `
+    DELETE FROM pizzas
+          WHERE id = ?
+  `
+}
+
+  export async function alterarPizza(id, novosDadosPizza) {
+    const comando = `
+      UPDATE pizzas
+      SET nm_sabor = ?,
+      tp_preparo = ?, 
+      preco = ?, 
+      qtd_estoque = ?, 
+      bt_promo = ?
+      WHERE id = ?;
+    `
+  
+    await connection.query(comando, [
+      novosDadosPizza.nm_sabor,
+      novosDadosPizza.tp_preparo,
+      novosDadosPizza.preco,
+      novosDadosPizza.qtd_estoque,
+      novosDadosPizza.bt_promo,
+      id]);
+  }
+
+  export async function removerPizza(id) {
+    const comando = `
+      DELETE FROM pizzas
+            WHERE id = ?
+    `
+  
+    const [info] = await connection.query(comando, [id]);
+  }
+  

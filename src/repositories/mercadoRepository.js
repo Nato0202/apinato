@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarMercado(id) {
   const comando = `
@@ -45,4 +45,35 @@ export async function adicionarMercado(novoMc) {
     novoMc.estoque])
   return info.insertId;
 
+}
+
+export async function alterarMercado(id, novosDadosMercado) {
+  const comando = `
+    UPDATE mercado
+    nm_produto = ?, 
+    qtd_produtos = ?, 
+    preco = ?, 
+    validade = ?, 
+    dt_compra = ?, 
+    estoque = ?
+     WHERE id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosMercado.nm_produto,
+    novosDadosMercado.qtd_produtos,
+    novosDadosMercado.preco,
+    novosDadosMercado.validade,
+    novosDadosMercado.dt_compra,
+    novosDadosMercado.estoque,
+    id]);
+}
+
+export async function removerMercado(id) {
+  const comando = `
+    DELETE FROM mercado
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

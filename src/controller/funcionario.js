@@ -1,65 +1,65 @@
 import express from 'express';
-import { listarFuncionarios, adicionarFuncionarios, filtrarFuncionario, consultarFuncionario } from '../src/repositories/funcionarioRepository.js';
+import repoFuncionario from '../src/repositories/funcionarioRepository.js';
 
-const router = express();
+const endpoints = express();
 
-router.get('/', async (req, res) => {
+endpoints.get('/funcionarios', async (req, res) => {
     try {
-        const funcionarios = await filtrarFuncionario();
+        const funcionarios = await repoFuncionario.filtrarFuncionario();
         res.json(funcionarios);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar funcionários' });
     }
 });
 
-router.get('/:id', async (req, res) => {
+endpoints.get('/funcionarios/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const funcionario = await consultarFuncionario(id);
+        const funcionario = await repoFuncionario.consultarFuncionario(id);
         res.json(funcionario);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar funcionário' });
     }
 });
 
-router.get('/', async (req, res) => {
+endpoints.get('/funcionarios', async (req, res) => {
     try {
-        const registros = await listarFuncionarios();
+        const registros = await repoFuncionario.listarFuncionarios();
         res.json(registros);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar funcionários' });
     }
 });
 
-router.post('/', async (req, res) => {
+endpoints.post('/funcionarios', async (req, res) => {
     try {
         const novoFuncionario = req.body;
-        const id = await adicionarFuncionarios(novoFuncionario);
+        const id = await repoFuncionario.adicionarFuncionarios(novoFuncionario);
         res.status(201).json({ newId: id });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao adicionar funcionário' });
     }
 });
 
-router.put('/:id', async (req, res) => {
+endpoints.put('/funcionarios/:id', async (req, res) => {
     const id = req.params.id;
     const novosDadosFuncionario = req.body;
     try {
-        await alterarFuncionario(id, novosDadosFuncionario);
+        await repoFuncionario.alterarFuncionario(id, novosDadosFuncionario);
         res.status(200).json({ message: 'Funcionário atualizado com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar funcionário' });
     }
 });
 
-router.delete('/:id', async (req, res) => {
+endpoints.delete('/funcionarios/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await removerFuncionario(id);
+        await repoFuncionario.removerFuncionario(id);
         res.status(200).json({ message: 'Funcionário removido com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao remover funcionário' });
     }
 });
 
-export default router;
+export default endpoints;

@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarRoupa(id) {
   const comando = `
@@ -46,4 +46,35 @@ export async function adicionarRoupa(novoRp) {
     novoRp.qt_preco])
   return info.insertId;
 
+}
+
+export async function alterarRoupa(id, novosDadosRoupa) {
+  const comando = `
+    UPDATE roupa
+    SET nm_marca = ?, 
+    nm_modelo = ?, 
+    nr_tamanho = ?, 
+    qtd_estoque = ?, 
+    bt_estoque = ?, 
+    qt_preco = ?,
+    where id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosRoupa.nm_marca,
+    novosDadosRoupa.nm_modelo,
+    novosDadosRoupa.nr_tamanho,
+    novosDadosRoupa.qtd_estoque,
+    novosDadosRoupa.bt_estoque,
+    novosDadosRoupa.qt_preco,
+    id]);
+}
+
+export async function removerRoupa(id) {
+  const comando = `
+    DELETE FROM roupa
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

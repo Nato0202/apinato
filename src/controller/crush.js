@@ -1,11 +1,11 @@
 import express from 'express';
-import { listarCrush, adicionarCrush, alterarCrush, removerCrush, filtrarCrush, consultarCrush} from '../src/repositories/crushRepository.js';
+import * as repoCrush from '../src/repositories/crushRepository.js';
 
-const router = express();
+const endpoints = express();
 
-router.get('/', async (req, res) => {
+endpoints.get('/crush', async (req, res) => {
     try {
-        const registros = await filtrarCrush();
+        const registros = await repoCrush.filtrarCrush();
         res.json(registros);
     } catch (error) {
 
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+endpoints.get('/crush/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const registro = await consultarCrush(id);
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+endpoints.get('/crush', async (req, res) => {
     try {
         const registros = await listarCrush();
         res.json(registros);
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+endpoints.post('/crush', async (req, res) => {
     try {
         const novoCrush = req.body;
         const id = await adicionarCrush(novoCrush);
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+endpoints.put('/crush/:id', async (req, res) => {
     const id = req.params.id;
     const novosDadosCrush = req.body;
     try {
@@ -53,7 +53,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+endpoints.delete('/crush/:id', async (req, res) => {
     const id = req.params.id;
     try {
         await removerCrush(id);
@@ -63,4 +63,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-export default router;
+export default endpoints;

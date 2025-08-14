@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarHospital(id) {
   const comando = `
@@ -47,4 +47,37 @@ export async function adicionarPaciente(novoPc) {
     novoPc.qd_entrada])
   return info.insertId;
 
+}
+
+export async function alterarPaciente(id, novosDadosPaciente) {
+  const comando = `
+    UPDATE hospital
+    SET medicamento_nm = ?, 
+    bt_medicamentos = ?, 
+    qtd_quartos = ?,
+    bt_quartos = ?, 
+    nm_paciente = ?, 
+    nm_doenca = ?,
+    qd_entrada = ?
+    WHERE id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosPaciente.medicamento_nm,
+    novosDadosPaciente.bt_medicamentos,
+    novosDadosPaciente.qtd_quartos,
+    novosDadosPaciente.bt_quartos,
+    novosDadosPaciente.nm_paciente,
+    novosDadosPaciente.nm_doenca,
+    novosDadosPaciente.qd_entrada,
+    id]);
+}
+
+export async function removerMercado(id) {
+  const comando = `
+    DELETE FROM hospital
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

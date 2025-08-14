@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarCrush(id) {
   const comando = `
@@ -23,10 +23,10 @@ export async function filtrarCrush(nome) {
 export async function listarCrush() {
   const comando = `
     SELECT *
-      FROM carros
+      FROM crush
   `
 
-  const [registros] = await conection.query(comando)
+  const [registros] = await connection.query(comando)
   return registros;
 }
 
@@ -37,7 +37,7 @@ export async function adicionarCrush(novoCrush) {
                values (?, ?, ?, ?, ?, ?, ?, ?, ?);
   `
 
-  const [info] = await conection.query(comando, [
+  const [info] = await connection.query(comando, [
     novoCrush.nome,
     novoCrush.idade,
     novoCrush.genero,
@@ -67,7 +67,7 @@ export async function alterarCrush(id, novosDadosCrush) {
      WHERE id = ?
   `
 
-  const [info] = await conection.query(comando, [
+  const [info] = await connection.query(comando, [
     novosDadosCrush.nome,
     novosDadosCrush.nome, 
     novosDadosCrush.idade, 
@@ -79,8 +79,7 @@ export async function alterarCrush(id, novosDadosCrush) {
     novosDadosCrush.nota_paixao, 
     novosDadosCrush.status_relacionamento,
     id
-  ]
-  )
+  ]);
 }
 
 
@@ -90,6 +89,6 @@ export async function removerCrush(id) {
           WHERE id = ?
   `
 
-  const [info] = await conection.query(comando, [id]);
+  const [info] = await connection.query(comando, [id]);
 }
 

@@ -1,0 +1,10 @@
+export async function alterar(id, novosDados) {
+  const comando = `
+    UPDATE 
+     WHERE id_carro = ?;
+  `
+
+  await connection.query(comando, [
+    novosDados
+    id]);
+}

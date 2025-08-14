@@ -1,4 +1,4 @@
-import { connection } from "../connection.js";
+import { connection } from "./connection.js";
 
 export async function consultarEstados(id) {
   const comando = `
@@ -44,4 +44,35 @@ export async function adicionarEstados(novoEt) {
     novoEt.naturalidade, 
     novoEt.dt_fundacao])
   return info.insertId;
+}
+
+export async function alterarEstado(id, novosDadosEstado) {
+  const comando = `
+    UPDATE estados
+    nm_estado = ?, 
+    ddd = ?, 
+    qntd_populacao, 
+    sigla = ?, 
+    naturalidade = ?, 
+    dt_fundacao = ?
+     WHERE id = ?;
+  `
+
+  await connection.query(comando, [
+    novosDadosEstado.nm_estado,
+    novosDadosEstado.ddd,
+    novosDadosEstado.qntd_populacao,
+    novosDadosEstado.sigla,
+    novosDadosEstado.naturalidade,
+    novosDadosEstado.dt_fundacao,
+    id]);
+}
+
+export async function removerEstado(id) {
+  const comando = `
+    DELETE FROM estados
+          WHERE id = ?
+  `
+
+  const [info] = await connection.query(comando, [id]);
 }

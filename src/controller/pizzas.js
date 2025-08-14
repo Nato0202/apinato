@@ -1,65 +1,65 @@
 import express from 'express';
-import { listarPizzas, adicionarPizzas, consultarPizzas } from '../src/repositories/pizzasRepository.js';
+import repoPizzas from '../src/repositories/pizzasRepository.js';
 
-const router = express();
+const endpoints = express();
 
-router.get('/', async (req, res) => {
+endpoints.get('/pizzas', async (req, res) => {
     try {
-        const pizzas = await listarPizzas();
+        const pizzas = await repoPizzas.listarPizzas();
         res.json(pizzas);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar pizzas' });
     }
 });
 
-router.get('/:id', async (req, res) => {
+endpoints.get('/pizzas/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const pizza = await consultarPizzas(id);
+        const pizza = await repoPizzas.consultarPizzas(id);
         res.json(pizza);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar pizza' });
     }
 });
 
-router.get('/', async (req, res) => {
+endpoints.get('/pizzas', async (req, res) => {
     try {
-        const registros = await listarPizzas();
+        const registros = await repoPizzas.listarPizzas();
         res.json(registros);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar pizzas' });
     }
 });
 
-router.post('/', async (req, res) => {
+endpoints.post('/pizzas', async (req, res) => {
     try {
         const novaPizza = req.body;
-        const id = await adicionarPizzas(novaPizza);
+        const id = await repoPizzas.adicionarPizzas(novaPizza);
         res.status(201).json({ newId: id });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao adicionar pizza' });
     }
 });
 
-router.put('/:id', async (req, res) => {
+endpoints.put('/pizzas/:id', async (req, res) => {
     const id = req.params.id;
     const novosDadosPizza = req.body;
     try {
-        await alterarPizza(id, novosDadosPizza);
+        await repoPizzas.alterarPizza(id, novosDadosPizza);
         res.status(200).json({ message: 'Pizza atualizada com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar pizza' });
     }
 });
 
-router.delete('/:id', async (req, res) => {
+endpoints.delete('/pizzas:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await removerPizza(id);
+        await repoPizzas.removerPizza(id);
         res.status(200).json({ message: 'Pizza removida com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao remover pizza' });
     }
 });
 
-export default router;
+export default endpoints;

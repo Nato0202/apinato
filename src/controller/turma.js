@@ -1,56 +1,55 @@
 import express from 'express';
-import { listarTurma, adicionarTurma, filtrarTurma, consultarTurma } from '../src/repositories/turmaRepository.js';
+import * as repoTurma from '../src/repositories/turmaRepository.js';
 
-const router = express();
+const endpoints = express();
 
-
-router.get('/', async (req, res) => {
+endpoints.get('/turma', async (req, res) => {
     try {
-        const registros = await filtrarTurma();
+        const registros = await repoTurma.filtrarTurma();
         res.json(registros);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar turmas' });
     }
 });
 
-router.get('/:id', async (req, res) => {
+endpoints.get('/turma/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const turma = await consultarTurma(id);
+        const turma = await repoTurma.consultarTurma(id);
         res.json(turma);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar turma' });
     }
 });
 
-router.post('/', async (req, res) => {
+endpoints.post('/turma', async (req, res) => {
     try {
         const novaTurma = req.body;
-        const id = await adicionarTurma(novaTurma);
+        const id = await repoTurma.adicionarTurma(novaTurma);
         res.status(201).json({ newId: id });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao adicionar turma' });
     }
 });
 
-router.put('/:id', async (req, res) => {
+endpoints.put('/turma/:id', async (req, res) => {
     const id = req.params.id;
     const novosDadosTurma = req.body;
     try {
-        await alterarTurma(id, novosDadosTurma);
+        await repoTurma.alterarTurma(id, novosDadosTurma);
         res.status(200).json({ message: 'Turma atualizada com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar turma' });
     }
 });
-router.delete('/:id', async (req, res) => {
+endpoints.delete('/turma/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await removerTurma(id);
+        await repoTurma.removerTurma(id);
         res.status(200).json({ message: 'Turma removida com sucesso' });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao remover turma' });
     }
 });
 
-export default router;
+export default endpoints;
